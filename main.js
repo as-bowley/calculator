@@ -18,16 +18,20 @@ let val2 = 0;
 let result = 0;
 
 function input(e) {
-    if (e.target !== e.currentTarget && e.target.className == "num") {
+    if (e.target.className == "num") {
         let clickedItem = e.target.id;
         numValArr.push(clickedItem);
         display.textContent = numValArr.join('');
         console.log(numValArr);
-    } else if (e.target !== e.currentTarget && e.target.className == "operand") {
+    } else if (e.target.className == "operand") {
         numCheck();
         if (prevOperand === "") {
             let clickedItem = e.target.textContent;
             prevOperand = clickedItem;
+        } else if (prevOperand !=="" && currOperand !== "") {
+            let clickedItem = e.target.textContent;
+            prevOperand = currOperand;
+            currOperand = clickedItem;
         } else {
             let clickedItem = e.target.textContent;
             console.log(clickedItem);
@@ -35,8 +39,7 @@ function input(e) {
             console.log(val2);
             operate(prevOperand, val1, val2);
         }
-        console.log(prevOperand, currOperand);
-    } else if (e.target !== e.currentTarget && e.target.className === "operate") {
+    } else if (e.target.className === "operate") {
         numCheck();
         operate(prevOperand, val1, val2);
     } else {
@@ -58,7 +61,6 @@ function subtract(num1, num2) {
     prevOperand = currOperand;
     currOperand = '';
     result = parseInt(num1) - parseInt(num2);
-    console.log(result);
     display.textContent = result;
     val1 = parseInt(result);
     result = 0;
@@ -86,12 +88,12 @@ function subtract(num1, num2) {
  }
 
  function numCheck() {
-    if (val1 === 0) {
+    if (val1 === 0 && numValArr.length > 0) {
         val1 = numValArr.join('');
         numValArr = [];
         console.log(val1);
         return val1;
-    } else {
+    } else if (numValArr.length > 0){
         val2 = numValArr.join('');
         numValArr = [];
         console.log(val2);
