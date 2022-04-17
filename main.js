@@ -1,107 +1,132 @@
 const buttons = document.querySelector(".button-container");
 const display = document.querySelector(".display");
-const add = document.querySelector(".add");
-const sub = document.querySelector(".sub");
-const multi = document.querySelector(".multi");
-const divi = document.querySelector(".divi");
-const equals = document.querySelector(".equals");
+const add = document.querySelector("#addition");
+const sub = document.querySelector("#subtract");
+const multi = document.querySelector("#multiply");
+const divi = document.querySelector("#divide");
+const equals = document.querySelector("#equals");
 const clear = document.querySelector(".clear");
-buttons.addEventListener("click", numInput, false);
+buttons.addEventListener("click", input, false);
 clear.addEventListener("click", clearFun, false);
-add.addEventListener("click", addition, false);
-equals.addEventListener("click", operate, false);
-sub.addEventListener("click", subtract, false);
-divi.addEventListener("click", divide, false);
-multi.addEventListener("click", multiply, false);
 
 let numValArr = [];
 let operArr = [];
+let prevOperand = "";
+let currOperand = "";
 let val1 = 0;
 let val2 = 0;
 let result = 0;
-let oper = 0;
 
-function numInput(e) {
-    if (e.target !== e.currentTarget && e.target.id == "num") {
-        let clickedItem = e.target.className;
+function input(e) {
+    if (e.target !== e.currentTarget && e.target.className == "num") {
+        let clickedItem = e.target.id;
         numValArr.push(clickedItem);
         display.textContent = numValArr.join('');
         console.log(numValArr);
+    } else if (e.target !== e.currentTarget && e.target.className == "operand") {
+        numCheck();
+        if (prevOperand === "") {
+            let clickedItem = e.target.textContent;
+            prevOperand = clickedItem;
+        } else {
+            let clickedItem = e.target.textContent;
+            console.log(clickedItem);
+            currOperand = clickedItem;
+            console.log(val2);
+            operate(prevOperand, val1, val2);
+        }
+        console.log(prevOperand, currOperand);
+    } else if (e.target !== e.currentTarget && e.target.className === "operate") {
+        numCheck();
+        operate(prevOperand, val1, val2);
+    } else {
+        return;
     }
 }
 
-function addition() {
-   if (operArr.length === 0) {
+function addition(num1, num2) {
+    prevOperand = currOperand;
+    currOperand = '';
+    result = parseInt(num1) + parseInt(num2);
+    display.textContent = result;
+    val1 = parseInt(result);
+    result = 0;
+    val2 = 0;
+}
+
+function subtract(num1, num2) {
+    prevOperand = currOperand;
+    currOperand = '';
+    result = parseInt(num1) - parseInt(num2);
+    console.log(result);
+    display.textContent = result;
+    val1 = parseInt(result);
+    result = 0;
+    val2 = 0;
+}
+
+ function divide(num1, num2) {
+    prevOperand = currOperand;
+    currOperand = '';
+    result = parseInt(num1) / parseInt(num2);
+    display.textContent = result;
+    val1 = parseInt(result);
+    result = 0;
+    val2 = 0;
+ }
+
+ function multiply(num1, num2) {
+    prevOperand = currOperand;
+    currOperand = '';
+    result = parseInt(num1) * parseInt(num2);
+    display.textContent = result;
+    val1 = parseInt(result);
+    result = 0;
+    val2 = 0;
+ }
+
+ function numCheck() {
+    if (val1 === 0) {
         val1 = numValArr.join('');
         numValArr = [];
-        operArr.push('add');
-   } else {
+        console.log(val1);
+        return val1;
+    } else {
         val2 = numValArr.join('');
         numValArr = [];
-        operate();
-   }
+        console.log(val2);
+        return val2;
+ }
 }
 
-function subtract() {
-    if (operArr.length === 0) {
-         val1 = numValArr.join('');
-         numValArr = [];
-         operArr.push('sub');
-    } else {
-         val2 = numValArr.join('');
-         numValArr = [];
-         operate();
-    }
- }
-
- function divide() {
-    if (operArr.length === 0) {
-         val1 = numValArr.join('');
-         numValArr = [];
-         operArr.push('divi');
-    } else {
-         val2 = numValArr.join('');
-         numValArr = [];
-         operate();
-    }
- }
-
- function multiply() {
-    if (operArr.length === 0) {
-         val1 = numValArr.join('');
-         numValArr = [];
-         operArr.push('multi');
-    } else {
-         val2 = numValArr.join('');
-         numValArr = [];
-         operate();
-    }
- }
-
-function operate() {
-    if (operArr[0] == 'add') {
-        val2 = numValArr.join('');
-        result = parseInt(val1) + parseInt(val2);
-        display.textContent = result;
-    } else if (operArr[0] == 'sub') {
-        val2 = numValArr.join('');
-        result = parseInt(val1) - parseInt(val2);
-        display.textContent = result;
-    } else if (operArr[0] == 'divi') {
-        val2 = numValArr.join('');
-        result = parseInt(val2) / parseInt(val2);
-        display.textContent = result;
-    } else if (operArr[0] == 'multi') {
-        val2 = numValArr.join('');
-        result = parseInt(val1) * parseInt(val2);
-        display.textContent = result;
-    }
+function operate(string, num1, num2) {
+    console.log(num1, num2);
+        switch (string) {
+                case '+':
+                    addition(num1, num2);
+                    break;
+                case '-':
+                    subtract(num1, num2);
+                    break;
+                case '÷':
+                    divide(num1, num2);
+                    break;
+                case 'x':
+                    multiply(num1, num2);
+                    break;
+                default:
+                    console.log(prevOperand);
+                    break;
+            }
 }
+
 
 function clearFun() {
+    val1 = 0;
+    val2 = 0;
     numValArr = [];
-    operArr = [];
-    sum = '';
+    prevOperand = '';
+    currOperand = '';
     display.textContent = '0';
 }
 
