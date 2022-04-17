@@ -7,9 +7,11 @@ const divi = document.querySelector("#divide");
 const equals = document.querySelector("#equals");
 const clear = document.querySelector(".clear");
 const backspaceButton = document.querySelector(".backspace");
+const decimalButton = document.querySelector(".decimal");
 buttons.addEventListener("click", input, false);
 clear.addEventListener("click", clearFun, false);
 backspaceButton.addEventListener("click", backspace, false);
+decimalButton.addEventListener("click", decimal, false);
 
 let numValArr = [];
 let operArr = [];
@@ -170,6 +172,15 @@ function backspace() {
         if (numValArr.length == 0) {
             display.textContent = 0;
         }
+    } else {
+        return;
+    }
+}
+
+function decimal() {
+    if (!numValArr.includes('.')) {
+    numValArr.push('.')
+    display.textContent = numValArr.join('');
     } else {
         return;
     }
