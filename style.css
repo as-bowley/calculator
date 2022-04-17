@@ -2,12 +2,11 @@
     display: grid;
     justify-content: center;
     width: 434px;
-    height: 729px;
+    height: 640px;
     margin: auto;
     border: 4px solid black;
     border-radius: 5%;
-    background-color: #949398FF;
-
+    background-color: #837d7d;
 }
 
 .display {
@@ -22,8 +21,10 @@
     direction: rtl;
     padding: 5px;
     font-weight: 500;
-    font-size: 26px;
-    background-color: #F4DF4EFF;
+    font-size: 36px;
+    background-color: #f1f4c6;
+    text-shadow:2px 2px 2px rgba(59,50,50,0.59);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
 }
 
 .button-container {
@@ -31,6 +32,11 @@
     flex-wrap: wrap;
     justify-content: center;
     width: 400px;
+}
+
+.button-container button:active {
+    background-color: #f1f4c6;
+    transform: translateY(2px);
 }
 
 .button-container button {
@@ -41,15 +47,34 @@
     margin: 2px;
     padding: 40px;
     border: none;
-    border-radius: 30%;
+    border-radius: 20%;
     height: 50px;
     width: 50px;
     background-color: black;
     font-family: Arial, Helvetica, sans-serif;
-    color: #F4DF4EFF;
+    color: rgb(0, 0, 0);
+    background-color: #d6d0b8;
     font-size: 34px;
+    box-shadow: 1px 3px 7px -1px rgba(0,0,0,0.75);
+}
+
+.button-container #equals {
+    border-radius: 10%;
 }
 
 .button-container .clear {
     border-radius: 10%;
+    background-color: #f1f4c6;
+}
+
+.button-container .operand {
+    background-color: #aaa6a4;
+    color: black;
+    font-size: 40px;
+}
+
+.button-container .operate {
+    background-color: #f1f4c6;
+    color: black;
+    font-size: 40px;
 }

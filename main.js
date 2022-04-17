@@ -6,8 +6,10 @@ const multi = document.querySelector("#multiply");
 const divi = document.querySelector("#divide");
 const equals = document.querySelector("#equals");
 const clear = document.querySelector(".clear");
+const backspaceButton = document.querySelector(".backspace");
 buttons.addEventListener("click", input, false);
 clear.addEventListener("click", clearFun, false);
+backspaceButton.addEventListener("click", backspace, false);
 
 let numValArr = [];
 let operArr = [];
@@ -51,8 +53,10 @@ function addition(num1, num2) {
     prevOperand = currOperand;
     currOperand = '';
     result = parseInt(num1) + parseInt(num2);
+    result = Math.round(result * 100)/100;
+    console.log(result);
     display.textContent = result;
-    val1 = parseInt(result);
+    val1 = result;
     result = 0;
     val2 = 0;
 }
@@ -60,31 +64,55 @@ function addition(num1, num2) {
 function subtract(num1, num2) {
     prevOperand = currOperand;
     currOperand = '';
-    result = parseInt(num1) - parseInt(num2);
+    result = num1 - num2;
+    result = Math.round(result * 100)/100;
     display.textContent = result;
-    val1 = parseInt(result);
+    val1 = result;
     result = 0;
     val2 = 0;
 }
 
  function divide(num1, num2) {
-    prevOperand = currOperand;
-    currOperand = '';
-    result = parseInt(num1) / parseInt(num2);
-    display.textContent = result;
-    val1 = parseInt(result);
-    result = 0;
-    val2 = 0;
+     console.log(num1, num2);
+    if (num1 == 0 && num2 == 0) {
+        display.textContent = "!nice try";
+    } else {
+        prevOperand = currOperand;
+        currOperand = '';
+        result = num1 / num2;
+        console.log(result);
+        result = Math.round(result * 100)/100;
+        display.textContent = result;
+        val1 = result;
+        result = 0;
+        val2 = 0;
+    }
  }
 
  function multiply(num1, num2) {
     prevOperand = currOperand;
     currOperand = '';
-    result = parseInt(num1) * parseInt(num2);
+    result = num1 * num2;
+    result = Math.round(result * 100)/100;
     display.textContent = result;
-    val1 = parseInt(result);
+    val1 = result;
     result = 0;
     val2 = 0;
+ }
+
+ function remainder(num1, num2) {
+    if (num1 == 0 && num2 == 0) {
+        display.textContent = "!nice try";
+    } else {
+        prevOperand = currOperand;
+        currOperand = '';
+        result = num1 % num2;
+        result = Math.round(result * 100)/100;
+        display.textContent = result;
+        val1 = result;
+        result = 0;
+        val2 = 0;
+    }
  }
 
  function numCheck() {
@@ -116,6 +144,9 @@ function operate(string, num1, num2) {
                 case 'x':
                     multiply(num1, num2);
                     break;
+                case '%':
+                    remainder(num1, num2);
+                    break;
                 default:
                     console.log(prevOperand);
                     break;
@@ -130,5 +161,17 @@ function clearFun() {
     prevOperand = '';
     currOperand = '';
     display.textContent = '0';
+}
+
+function backspace() {
+    if (numValArr.length > 0) {
+        numValArr.pop();
+        display.textContent = numValArr.join('');
+        if (numValArr.length == 0) {
+            display.textContent = 0;
+        }
+    } else {
+        return;
+    }
 }
 
